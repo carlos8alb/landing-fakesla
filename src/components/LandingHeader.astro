@@ -65,6 +65,7 @@ import Logo from '../components/Logo.astro'
 
 <script>
   const $header = document.querySelector('#landing-header') as HTMLElement
+  const $logo = document.getElementById('logo') as HTMLElement
 
   const observerOptions = {
     root: null,
@@ -78,6 +79,7 @@ import Logo from '../components/Logo.astro'
       if (isIntersecting) {
         const color = entry.target.getAttribute('data-header-color')
         $header.style.color = color
+        $logo.setAttribute('src', `./logo-${color}.png`)
       }
     })
   }, observerOptions)
