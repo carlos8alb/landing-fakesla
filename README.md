@@ -1,4 +1,4 @@
-#:pushpin: Fakesla Landing Page
+# :pushpin: Fakesla Landing Page
 
 ![Screenshot](./public/Screenshot.png)
 
