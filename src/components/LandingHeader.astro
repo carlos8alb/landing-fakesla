@@ -4,12 +4,13 @@ import Logo from '../components/Logo.astro'
 
 <header
   id='landing-header'
-  class='py-4 px-10 flex items-center fixed top-0 w-full justify-between text-white z-40'
+  class='px-5 md:px-10 lg:px-10 py-4 flex items-center fixed top-0 w-full justify-between text-white z-40'
 >
   <div class='flex flex-grow basis-0'>
     <Logo />
   </div>
-  <nav>
+
+  <nav class='hidden lg:block'>
     <ul
       class='flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2'
     >
@@ -22,7 +23,7 @@ import Logo from '../components/Logo.astro'
       <li><a href=''>Powerwall</a></li>
     </ul>
   </nav>
-  <nav class='flex flex-grow justify-end basis-0'>
+  <nav class='hidden lg:flex flex-grow justify-end basis-0'>
     <ul
       class='flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2'
     >
@@ -31,6 +32,40 @@ import Logo from '../components/Logo.astro'
       <li><a href=''>Menu</a></li>
     </ul>
   </nav>
+
+  <div class='sm:block md:block lg:hidden dropdown dropdown-end'>
+    <label tabindex='0' class='btn btn-ghost btn-circle'>
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        class='h-5 w-5'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+        ><path
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          stroke-width='2'
+          d='M4 6h16M4 12h16M4 18h7'></path></svg
+      >
+    </label>
+    <ul
+      id='dropdown-menu'
+      tabindex='0'
+      class='menu menu-compact dropdown-content mt-3 shadow bg-gray-500 rounded-box w-52'
+    >
+      <li><a href=''>Model S</a></li>
+      <li><a href=''>Model 3</a></li>
+      <li><a href=''>Model X</a></li>
+      <li><a href=''>Model Y</a></li>
+      <li><a href=''>Solar Roof</a></li>
+      <li><a href=''>Solar Panel</a></li>
+      <li><a href=''>Powerwall</a></li>
+      <hr />
+      <li><a href=''>Shop</a></li>
+      <li><a href=''>Account</a></li>
+      <li><a href=''>Menu</a></li>
+    </ul>
+  </div>
 
   <div
     id='menu-backdrop'
@@ -66,6 +101,7 @@ import Logo from '../components/Logo.astro'
 <script>
   const $header = document.querySelector('#landing-header') as HTMLElement
   const $logo = document.getElementById('logo') as HTMLElement
+  const $dropdownMenu = document.getElementById('dropdown-menu') as HTMLElement
 
   const observerOptions = {
     root: null,
@@ -78,7 +114,9 @@ import Logo from '../components/Logo.astro'
       const { isIntersecting } = entry
       if (isIntersecting) {
         const color = entry.target.getAttribute('data-header-color')
+        const colorMenu = entry.target.getAttribute('data-menu-color')
         $header.style.color = color
+        $dropdownMenu.style.background = colorMenu
         $logo.setAttribute('src', `./logo-${color}.png`)
       }
     })
